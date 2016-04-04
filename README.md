@@ -6,16 +6,16 @@ Dockerized version of HMCFGUSB. Take a look at http://git.zerfleddert.de/cgi-bin
 
 ```
 # Build version 0.102
-docker build -t patrickse/rpi-hmland:0.102 .
+docker build -t patrickse/rpi-hmcfgusb:0.102 .
 
 # Build other version 
-docker build --build-arg HMCFGUSB_VERSION=0.101 -t patrickse/rpi-hmland:0.101 .
+docker build --build-arg HMCFGUSB_VERSION=0.101 -t patrickse/rpi-hmcfgusb:0.101 .
 ```
 
 # Run
 
 ```
 # Run together with links and homegear
-docker run --name hmland -d patrickse/rpi-hmland:0.102
+docker run --name hmland -d patrickse/rpi-hmcfgusb:0.102
 docker run --link hmland:hmland -d homegear/homegear-0.5
 ```
