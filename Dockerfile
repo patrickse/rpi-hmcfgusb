@@ -1,28 +1,23 @@
 # HMCFGUSB
 # http://git.zerfleddert.de/cgi-bin/gitweb.cgi/hmcfgusb
-FROM debian:jessie
+FROM hypriot/rpi-alpine-scratch:3.2
+MAINTAINER Patrick Sernetz <patrick@sernetz.com>
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV HMCFGUSB_VERSION latest
+ARG HMCFGUSB_VERSION=0.102
 
-RUN apt-get -y update \
-  #&& apt-get -y upgrade \
-  && apt-get -y install libusb-1.0-0-dev build-essential git wget tar
-
-
-#RUN mkdir /opt/hmland \
-#  && git clone git://git.zerfleddert.de/hmcfgusb \
-#  && cd hmcfgusb
-#  && make
-
-RUN mkdir /opt/hmland \
-  && cd /opt/hmland \
-  && wget https://git.zerfleddert.de/hmcfgusb/releases/hmcfgusb-0.102.tar.gz \
-  && tar xzf hmcfgusb-0.102.tar.gz \
-  && cp -R hmcfgusb-0.102/* . \
-  && make
-
+RUN mkdir /opt \
+  && wget http://git.zerfleddert.de/hmcfgusb/releases/hmcfgusb-$HMCFGUSB_VERSION.tar.gz -P /tmp \
+  && apk add --update build-base libusb libusb-dev && rm -rf /var/cache/apk/* \
+  && tar -xzf /tmp/hmcfgusb-$HMCFGUSB_VERSION.tar.gz -C /opt \
+  && rm /tmp/hmcfgusb-$HMCFGUSB_VERSION.tar.gz \
+  && cd /opt/hmcfgusb-$HMCFGUSB_VERSION \
+  && ln -s /opt/hmcfgusb-$HMCFGUSB_VERSION /opt/hmcfgusb \
+  && make \
+  && rm *.h *.o *.c *.d \
+  && apk del build-base libusb-dev  
+  
 EXPOSE 1234
 
-#CMD ["/opt/hmland/hmland", "-p 1234", "-D"]
-CMD ["/opt/hmland/hmland", "-v"]
+WORKDIR /opt/hmcfgusb
+
+CMD ["/opt/hmcfgusb/hmland", "-v"]
