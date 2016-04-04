@@ -1,6 +1,7 @@
 # HMCFGUSB
 # http://git.zerfleddert.de/cgi-bin/gitweb.cgi/hmcfgusb
-FROM hypriot/rpi-alpine-scratch:3.2
+#FROM hypriot/rpi-alpine-scratch:v3.2
+FROM alpine:3.2
 MAINTAINER Patrick Sernetz <patrick@sernetz.com>
 
 ARG HMCFGUSB_VERSION=0.102
