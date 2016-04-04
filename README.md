@@ -19,3 +19,12 @@ docker build --build-arg HMCFGUSB_VERSION=0.101 -t patrickse/rpi-hmcfgusb:0.101 
 docker run --name hmland -d patrickse/rpi-hmcfgusb:0.102
 docker run --link hmland:hmland -d homegear/homegear-0.5
 ```
+
+# Compose
+
+```yaml
+  hmcfgusb:
+    restart: always
+    image: patrickse/rpi-hmcfgusb:0.102
+    privileged: true
+```

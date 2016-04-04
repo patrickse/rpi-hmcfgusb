@@ -20,4 +20,4 @@ EXPOSE 1234
 
 WORKDIR /opt/hmcfgusb
 
-CMD ["/opt/hmcfgusb/hmland", "-v"]
+CMD ["/opt/hmcfgusb/hmland", "-v", "-p 1234", "-I"]
